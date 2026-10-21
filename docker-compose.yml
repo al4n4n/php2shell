@@ -1,0 +1,38 @@
+services:
+  wordpress:
+    image: wordpress:6.7-php8.3-apache
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+      WORDPRESS_DB_NAME: wordpress
+      # Keep ZMM enabled (default) since OOM triggers reliably with it
+      # USE_ZEND_ALLOC: "0"
+    volumes:
+      - wp_data:/var/www/html
+      - ./php-config/php.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./poc:/var/www/html/poc
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  wp_data:
+  db_data:
