@@ -63,4 +63,4 @@ Expected output:
 
 ## Blog Post
 
-Full technical writeup: [CVE-2026-109618 CVE-2026-109619 PHP Use-After-Free: From zend_bailout() to 100% Reliable PoC](https://blog.al4n4n.com/2026/10/21/CVE-2026-109618-CVE-2026-109619-PHP-UAF-zend-bailout/)
+Full technical writeup: [CVE-2026-109618 CVE-2026-109619 PHP Use-After-Free: From zend_bailout() to 100% Reliable PoC](https://blog.al4n4n.com/CVE-2026-109618-CVE-2026-109619-PHP-UAF-zend-bailout/)
